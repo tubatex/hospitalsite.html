@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Santhi Care Hospital</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f8f7;--surface:#fff;--ink:#16302f;--muted:#5b716f;--line:#d9e3e1;--brand:#0f5257;--brand-ink:#fff;--soft:#e2f0ee;--alert:#c8402a;--alert-soft:#fbe6e1;--ok:#2d7a4f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a19;--surface:#162624;--ink:#e6f1ef;--muted:#9bb3b0;--line:#2a3f3d;--brand:#5cc4bb;--brand-ink:#08201e;--soft:#1d3532;--alert:#ff8a73;--alert-soft:#3a1f1a;--ok:#6fd49a}}
+:root[data-theme="dark"]{--bg:#0e1a19;--surface:#162624;--ink:#e6f1ef;--muted:#9bb3b0;--line:#2a3f3d;--brand:#5cc4bb;--brand-ink:#08201e;--soft:#1d3532;--alert:#ff8a73;--alert-soft:#3a1f1a;--ok:#6fd49a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(2rem,5vw,3.2rem)}h2{font-size:1.7rem}h3{font-size:1.15rem}
+a{color:inherit}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--surface);border-bottom:1px solid var(--line);z-index:5}
+.bar{max-width:1050px;margin:auto;padding:.7rem 1.2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.logo{font:700 1.25rem Fraunces,serif;text-decoration:none;color:var(--brand);margin-right:auto}
+nav{display:flex;gap:.3rem;flex-wrap:wrap}
+nav a{padding:.45rem .9rem;border-radius:99px;text-decoration:none;font-weight:500;color:var(--muted)}
+nav a:hover{background:var(--soft)}
+nav a[aria-current="page"]{background:var(--brand);color:var(--brand-ink)}
+nav a.sos{color:var(--alert)}nav a.sos[aria-current="page"]{background:var(--alert);color:#fff}
+main{max-width:1050px;margin:auto;padding:2rem 1.2rem 3rem}
+.view{display:none}.view.on{display:block}
+.btn{display:inline-block;border:0;background:var(--brand);color:var(--brand-ink);padding:.7rem 1.3rem;border-radius:8px;font:600 1rem Figtree,sans-serif;cursor:pointer;text-decoration:none}
+.btn.alt{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn.red{background:var(--alert);color:#fff}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center;padding:1rem 0 2rem}
+.hero p{color:var(--muted);max-width:52ch}
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem}
+.queue{background:var(--brand);color:var(--brand-ink);border-radius:18px;padding:1.5rem}
+.queue h3{margin-bottom:.8rem}
+.qrow{display:flex;justify-content:space-between;padding:.55rem 0;border-top:1px solid color-mix(in srgb,var(--brand-ink) 25%,transparent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.2rem}
+.card p{color:var(--muted);margin:.2rem 0}
+.stat{font:700 2rem Fraunces,serif;color:var(--brand)}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--soft);color:var(--brand);display:grid;place-items:center;font:700 1.1rem Fraunces,serif;margin-bottom:.6rem}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .9rem;border-radius:99px;cursor:pointer;font:500 .95rem Figtree,sans-serif}
+.chip[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.tag{display:inline-block;font-size:.8rem;padding:.1rem .6rem;border-radius:99px;background:var(--soft);color:var(--brand);font-weight:600}
+.tag.red{background:var(--alert-soft);color:var(--alert)}.tag.ok{color:var(--ok)}
+form .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+label{display:block;font-weight:600;margin:.8rem 0 .25rem;font-size:.95rem}
+input,select,textarea{width:100%;padding:.65rem .8rem;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:1rem Figtree,sans-serif}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:1.5rem;align-items:start}
+.msg{margin-top:1rem;padding:.8rem 1rem;border-radius:8px;background:var(--soft);display:none}
+.msg.err{background:var(--alert-soft);color:var(--alert)}
+.msg.show{display:block}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;min-width:560px}
+th,td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);font-size:.9rem}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.sosbox{background:var(--alert-soft);border:2px solid var(--alert);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+.sosbox .num{font:700 2.6rem Fraunces,serif;color:var(--alert)}
+footer{border-top:1px solid var(--line);color:var(--muted);text-align:center;padding:1.5rem 1rem;font-size:.9rem}
+.sm{font-size:.9rem;color:var(--muted)}
+@media(max-width:760px){.hero,.two,form .row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:no-preference){.view.on{animation:in .25s ease-out}@keyframes in{from{opacity:0}to{opacity:1}}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<a class="logo" href="#home">Santhi Care Hospital</a>
+<nav aria-label="Main">
+<a href="#home" data-p="home">Home</a>
+<a href="#doctors" data-p="doctors">Doctors</a>
+<a href="#appointments" data-p="appointments">Appointments</a>
+<a href="#patients" data-p="patients">Patients</a>
+<a href="#emergency" data-p="emergency" class="sos">Emergency</a>
+</nav></div></header>
+
+<main>
+<!-- 1 HOME -->
+<section id="home" class="view">
+<div class="hero">
+<div>
+<h1>Care that starts before you reach the ward.</h1>
+<p>Find a doctor, book a slot, and check ward and patient records in one place. Built for patients, families and the staff who look after them.</p>
+<div class="actions"><a class="btn" href="#appointments">Book an appointment</a><a class="btn alt" href="#doctors">Find a doctor</a></div>
+</div>
+<div class="queue" aria-label="Today's OPD wait times">
+<h3>OPD wait today</h3>
+<div class="qrow"><span>General Medicine</span><b>15 min</b></div>
+<div class="qrow"><span>Paediatrics</span><b>25 min</b></div>
+<div class="qrow"><span>Orthopaedics</span><b>40 min</b></div>
+<div class="qrow"><span>Cardiology</span><b>30 min</b></div>
+</div>
+</div>
+<h2>Hospital at a glance</h2>
+<div class="grid">
+<div class="card"><div class="stat" id="sDoc">0</div><p>Specialist doctors</p></div>
+<div class="card"><div class="stat" id="sApp">0</div><p>Appointments booked</p></div>
+<div class="card"><div class="stat" id="sPat">0</div><p>Patients on record</p></div>
+<div class="card"><div class="stat">24/7</div><p>Emergency and ambulance</p></div>
+</div>
+<h2 style="margin-top:2rem">What would you like to do?</h2>
+<div class="grid">
+<a class="card" href="#doctors" style="text-decoration:none"><h3>Find a doctor</h3><p>Filter by department and see who is available today.</p></a>
+<a class="card" href="#appointments" style="text-decoration:none"><h3>Book or cancel a visit</h3><p>Pick a doctor, date and time in under a minute.</p></a>
+<a class="card" href="#patients" style="text-decoration:none"><h3>Look up a patient</h3><p>Search records and register new patients.</p></a>
+</div>
+</section>
+
+<!-- 2 DOCTORS -->
+<section id="doctors" class="view">
+<h2>Our doctors</h2>
+<p class="sm">Choose a department to narrow the list.</p>
+<div class="chips" id="deptChips" role="group" aria-label="Departments"></div>
+<div class="grid" id="docGrid"></div>
+</section>
+
+<!-- 3 APPOINTMENTS -->
+<section id="appointments" class="view">
+<h2>Appointments</h2>
+<div class="two">
+<div class="card">
+<h3>Book a new appointment</h3>
+<form id="appForm" novalidate>
+<label for="aName">Patient name</label><input id="aName" autocomplete="name">
+<div class="row">
+<div><label for="aDept">Department</label><select id="aDept"></select></div>
+<div><label for="aDoc">Doctor</label><select id="aDoc"></select></div>
+</div>
+<div class="row">
+<div><label for="aDate">Date</label><input type="date" id="aDate"></div>
+<div><label for="aTime">Time slot</label><select id="aTime"></select></div>
+</div>
+<label for="aNote">Reason for visit (optional)</label><textarea id="aNote" rows="2"></textarea>
+<div style="margin-top:1rem"><button class="btn" type="submit">Book appointment</button></div>
+<div class="msg" id="aMsg" role="status"></div>
+</form>
+</div>
+<div class="card">
+<h3>Upcoming appointments</h3>
+<ul class="list" id="appList"></ul>
+</div>
+</div>
+</section>
+
+<!-- 4 PATIENTS -->
+<section id="patients" class="view">
+<h2>Patient records</h2>
+<div class="two">
+<div>
+<label for="pSearch" style="margin-top:0">Search by name, ID or ward</label>
+<input id="pSearch" type="search" placeholder="e.g. Anita or W-02">
+<div class="scroll" style="margin-top:1rem"><table>
+<thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Ward</th><th>Status</th></tr></thead>
+<tbody id="pBody"></tbody></table></div>
+<p class="sm" id="pEmpty" style="display:none">No patient matches that search. Check the spelling or register them on the right.</p>
+</div>
+<div class="card">
+<h3>Register a patient</h3>
+<form id="pForm" novalidate>
+<label for="pName">Full name</label><input id="pName">
+<div class="row">
+<div><label for="pAge">Age</label><input id="pAge" type="number" min="0" max="120"></div>
+<div><label for="pWard">Ward</label><select id="pWard"><option>OPD</option><option>W-01 General</option><option>W-02 Paediatric</option><option>W-03 Ortho</option><option>ICU</option></select></div>
+</div>
+<div style="margin-top:1rem"><button class="btn" type="submit">Register patient</button></div>
+<div class="msg" id="pMsg" role="status"></div>
+</form>
+</div>
+</div>
+</section>
+
+<!-- 5 EMERGENCY & CONTACT -->
+<section id="emergency" class="view">
+<div class="sosbox">
+<h2 style="color:var(--alert)">Emergency</h2>
+<div class="num">108</div>
+<p>Call for an ambulance. Our casualty ward is open 24 hours and a doctor is always on duty.</p>
+<div class="actions"><a class="btn red" href="tel:108">Call ambulance</a><button class="btn alt" id="shareLoc" style="color:var(--alert);border-color:var(--alert)" type="button">I am on my way</button></div>
+<div class="msg" id="eMsg" role="status"></div>
+</div>
+<div class="two">
+<div class="card">
+<h3>Send us a message</h3>
+<form id="cForm" novalidate>
+<label for="cName">Your name</label><input id="cName">
+<label for="cMail">Email or phone</label><input id="cMail">
+<label for="cMsg">Message</label><textarea id="cMsg" rows="3"></textarea>
+<div style="margin-top:1rem"><button class="btn" type="submit">Send message</button></div>
+<div class="msg" id="cOut" role="status"></div>
+</form>
+</div>
+<div class="card">
+<h3>Visit us</h3>
+<ul class="list">
+<li><span>Reception</span><b>8 am to 8 pm</b></li>
+<li><span>Visiting hours</span><b>4 pm to 6 pm</b></li>
+<li><span>Pharmacy</span><b>24 hours</b></li>
+<li><span>Helpdesk</span><b>0471 555 0142</b></li>
+</ul>
+<p class="sm">12 Hospital Road, Kerala. Free parking for patients and visitors.</p>
+</div>
+</div>
+</section>
+</main>
+<footer>Santhi Care Hospital. A demo website for a design assignment, not a real hospital.</footer>
+
+<script>
+const doctors=[
+{n:"Dr. Meera Nair",d:"General Medicine",q:"MBBS, MD",t:"Today"},
+{n:"Dr. Arun Varma",d:"Cardiology",q:"MD, DM Cardiology",t:"Today"},
+{n:"Dr. Sneha Pillai",d:"Paediatrics",q:"MBBS, DCH",t:"Today"},
+{n:"Dr. Rahul Menon",d:"Orthopaedics",q:"MS Ortho",t:"Tomorrow"},
+{n:"Dr. Fatima Rasheed",d:"Gynaecology",q:"MBBS, DGO",t:"Today"},
+{n:"Dr. Joseph Mathew",d:"Cardiology",q:"MD, DNB",t:"Tomorrow"},
+{n:"Dr. Kavya Iyer",d:"Dermatology",q:"MD Dermatology",t:"Today"},
+{n:"Dr. Suresh Babu",d:"General Medicine",q:"MBBS, MD",t:"Today"}];
+const depts=[...new Set(doctors.map(x=>x.d))].sort();
+const slots=["09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30"];
+let apps=[{n:"Anita Das",doc:"Dr. Meera Nair",d:"General Medicine",date:"2026-11-03",time:"10:00"}];
+let pats=[
+{id:"P-1001",n:"Anita Das",a:34,w:"OPD",s:"Outpatient"},
+{id:"P-1002",n:"Ravi Kumar",a:61,w:"ICU",s:"Critical"},
+{id:"P-1003",n:"Baby Aisha",a:3,w:"W-02 Paediatric",s:"Admitted"},
+{id:"P-1004",n:"Thomas George",a:48,w:"W-03 Ortho",s:"Admitted"},
+{id:"P-1005",n:"Lakshmi Devi",a:72,w:"W-01 General",s:"Discharged"}];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pages=["home","doctors","appointments","patients","emergency"];
+
+/* router */
+function route(){
+ let p=location.hash.slice(1);if(!pages.includes(p))p="home";
+ pages.forEach(x=>$(x).classList.toggle("on",x===p));
+ document.querySelectorAll("nav a").forEach(a=>{a.dataset.p===p?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+ document.title=(p==="home"?"":p[0].toUpperCase()+p.slice(1)+" | ")+"Santhi Care Hospital";
+ window.scrollTo(0,0);stats();
+}
+addEventListener("hashchange",route);
+
+function stats(){$("sDoc").textContent=doctors.length;$("sApp").textContent=apps.length;$("sPat").textContent=pats.length}
+
+/* doctors */
+let dept="All";
+function chips(){
+ $("deptChips").innerHTML=["All",...depts].map(d=>`<button class="chip" aria-pressed="${d===dept}" data-d="${d}">${d}</button>`).join("");
+}
+$("deptChips").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;dept=b.dataset.d;chips();docs()});
+function docs(){
+ $("docGrid").innerHTML=doctors.filter(x=>dept==="All"||x.d===dept).map(x=>{
+  const ini=x.n.replace("Dr. ","").split(" ").map(w=>w[0]).join("");
+  return `<div class="card"><div class="avatar" aria-hidden="true">${ini}</div><h3>${x.n}</h3><p>${x.d}</p><p class="sm">${x.q}</p><p><span class="tag ${x.t==="Today"?"ok":""}">Available ${x.t.toLowerCase()}</span></p><div style="margin-top:.8rem"><button class="btn alt" data-book="${x.n}">Book</button></div></div>`}).join("");
+}
+$("docGrid").addEventListener("click",e=>{
+ const b=e.target.closest("[data-book]");if(!b)return;
+ const d=doctors.find(x=>x.n===b.dataset.book);
+ $("aDept").value=d.d;fillDocs();$("aDoc").value=d.n;
+ location.hash="#appointments";
+});
+
+/* appointments */
+function fillDepts(){$("aDept").innerHTML=depts.map(d=>`<option>${d}</option>`).join("")}
+function fillDocs(){$("aDoc").innerHTML=doctors.filter(x=>x.d===$("aDept").value).map(x=>`<option>${x.n}</option>`).join("")}
+function fillSlots(){
+ const taken=apps.filter(a=>a.doc===$("aDoc").value&&a.date===$("aDate").value).map(a=>a.time);
+ $("aTime").innerHTML=slots.map(s=>`<option ${taken.includes(s)?"disabled":""}>${s}${taken.includes(s)?" (booked)":""}</option>`).join("");
+}
+function show(id,text,err){const m=$(id);m.textContent=text;m.className="msg show"+(err?" err":"")}
+$("aDept").onchange=()=>{fillDocs();fillSlots()};$("aDoc").onchange=fillSlots;$("aDate").onchange=fillSlots;
+function list(){
+ $("appList").innerHTML=apps.length?apps.map((a,i)=>`<li><span><b>${esc(a.n)}</b><br><span class="sm">${a.doc}, ${a.date} at ${a.time}</span></span><button class="btn alt" data-c="${i}" style="padding:.35rem .8rem">Cancel</button></li>`).join(""):`<li class="sm">No appointments yet. Use the form to book your first one.</li>`;
+ stats();
+}
+$("appList").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(!b)return;apps.splice(+b.dataset.c,1);list();fillSlots();show("aMsg","Appointment cancelled.")});
+$("appForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const n=$("aName").value.trim(),date=$("aDate").value,time=$("aTime").value;
+ if(!n)return show("aMsg","Enter the patient name.",1);
+ if(!date)return show("aMsg","Choose a date for the visit.",1);
+ if(date<new Date().toISOString().slice(0,10))return show("aMsg","That date has passed. Choose today or a later date.",1);
+ if(!time||time.includes("booked"))return show("aMsg","Choose a free time slot.",1);
+ apps.push({n,doc:$("aDoc").value,d:$("aDept").value,date,time});
+ list();fillSlots();show("aMsg",`Booked: ${$("aDoc").value} on ${date} at ${time}.`);$("aName").value="";$("aNote").value="";
+});
+
+/* patients */
+function plist(){
+ const q=$("pSearch").value.toLowerCase().trim();
+ const r=pats.filter(p=>[p.id,p.n,p.w,p.s].join(" ").toLowerCase().includes(q));
+ $("pBody").innerHTML=r.map(p=>`<tr><td>${p.id}</td><td>${esc(p.n)}</td><td>${p.a}</td><td>${p.w}</td><td><span class="tag ${p.s==="Critical"?"red":""}">${p.s}</span></td></tr>`).join("");
+ $("pEmpty").style.display=r.length?"none":"block";stats();
+}
+$("pSearch").oninput=plist;
+$("pForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const n=$("pName").value.trim(),a=+$("pAge").value,w=$("pWard").value;
+ if(!n)return show("pMsg","Enter the patient's full name.",1);
+ if(!(a>=0&&a<=120)||$("pAge").value==="")return show("pMsg","Enter an age between 0 and 120.",1);
+ const id="P-"+(1001+pats.length);
+ pats.push({id,n,a,w,s:w==="OPD"?"Outpatient":"Admitted"});
+ plist();show("pMsg",`${n} registered with ID ${id}.`);$("pName").value="";$("pAge").value="";
+});
+
+/* emergency */
+$("shareLoc").onclick=()=>show("eMsg","Casualty has been alerted. Come to the main gate, staff will meet you.");
+$("cForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ if(!$("cName").value.trim()||!$("cMail").value.trim()||!$("cMsg").value.trim())return show("cOut","Fill in your name, contact and message.",1);
+ show("cOut","Message sent. We will reply within one working day.");e.target.reset();
+});
+
+/* init */
+const t=new Date();t.setDate(t.getDate()+1);$("aDate").value=t.toISOString().slice(0,10);$("aDate").min=new Date().toISOString().slice(0,10);
+chips();docs();fillDepts();fillDocs();fillSlots();list();plist();
+if(!location.hash)history.replaceState(null,"","#home");
+route();
+</script>
+</body>
+</html>
